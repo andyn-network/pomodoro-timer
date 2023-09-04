@@ -12,7 +12,7 @@ const max = 60 * 60;
 const interval = 60;
 
 function App() {
-  // State for break time, session time, and display state
+  // State for break time, session time, and display state.
   const [breakTime, setBreakTime] = useState(defaultBreakTime);
   const [sessionTime, setSessionTime] = useState(defaultSessionTime);
   const [displayState, setDisplayState] = useState<DisplayState>({
@@ -21,7 +21,7 @@ function App() {
     timerRunning: false,
   });
 
-  // Effect to update the timer every second when running
+  // Effect to update the timer every second when running.
   useEffect(() => {
     let timerID: number;
     if (!displayState.timerRunning) return;
@@ -35,14 +35,14 @@ function App() {
     };
   }, [displayState.timerRunning]);
 
-  // Effect for audio playback and timer transition
+  // Effect for audio playback and timer transition.
   useEffect(() => {
     if (displayState.time === 0) {
       const audio = document.getElementById("beep") as HTMLAudioElement;
       audio.currentTime = 0;
       audio.play().catch((err) => console.log(err));
 
-      // Transition to the next session/break
+      // Transition to the next session/break.
       setDisplayState((prev) => ({
         ...prev,
         timeType: prev.timeType === "Session" ? "Break" : "Session",
@@ -51,7 +51,7 @@ function App() {
     }
   }, [displayState, breakTime, sessionTime]);
 
-  // Function to reset the timer
+  // Function to reset the timer.
   const reset = () => {
     setBreakTime(defaultBreakTime);
     setSessionTime(defaultSessionTime);
@@ -61,13 +61,13 @@ function App() {
       timerRunning: false,
     });
 
-    // Pause and reset audio playback
+    // Pause and reset audio playback.
     const audio = document.getElementById("beep") as HTMLAudioElement;
     audio.pause();
     audio.currentTime = 0;
   };
 
-  // Function to start/stop the timer
+  // Function to start/stop the timer.
   const startStop = () => {
     setDisplayState((prev) => ({
       ...prev,
@@ -75,13 +75,13 @@ function App() {
     }));
   };
 
-  // Function to change break time
+  // Function to change break time.
   const changeBreakTime = (time: number) => {
     if (displayState.timerRunning) return;
     setBreakTime(time);
   };
 
-  // Function to decrement the timer display
+  // Function to decrement the timer display.
   const decrementDisplay = () => {
     setDisplayState((prev) => ({
       ...prev,
@@ -89,7 +89,7 @@ function App() {
     }));
   };
 
-  // Function to change session time
+  // Function to change session time.
   const changeSessionTime = (time: number) => {
     if (displayState.timerRunning) return;
     setSessionTime(time);
